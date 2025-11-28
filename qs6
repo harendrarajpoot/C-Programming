@@ -1,0 +1,26 @@
+//6. Take two numbers and print the larger one. 
+
+
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int main() {
+   
+   int a,b;
+   
+   printf("Enter Two Number :: ");
+    scanf("%d %d",&a,&b);
+  //   printf("Enter Second Number :: ");
+    //    scanf("%d",&b);
+         if(a>b)
+         {
+             printf("%d is greater then",a);
+         }
+         else
+         {  
+             printf("%d is greater then",b);
+         }
+         
+
+    return 0;
+}
