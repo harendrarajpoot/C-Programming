@@ -6,3 +6,41 @@
    //3 tuesday,
    //4= wednesday
    //5= thursday,
+
+9. Take a character and check if it’s a vowel or consonant.
+
+
+10. Take a character and check whether it’s uppercase, lowercase, a digit, or a special
+character.
+
+// Online C compiler to run C program online
+#include <stdio.h>
+
+int main() {
+  // EJOTY
+  char ch='*';
+  // A=65 V= 65+22-1 86 
+  // a=97
+  // 0=48
+  
+  
+  if(ch>=65&&ch<=90)
+  {
+      printf("It upppercase Letter %d",ch);
+  }
+  else if(ch>=97 && ch<=122)
+  {
+      printf("It's Lowercase Letter %d",ch);
+  }
+  // 5=53 48+5=53
+  else if(ch>=48 && ch<=57)
+  {
+      printf("It's digit");
+  }
+  else
+  {
+     printf("It's special character"); 
+  }
+
+    return 0;
+}
