@@ -1,0 +1,212 @@
+Notes & Tips
+
+@NotBlank: For Strings only—it trims and ensures the string isn’t empty after trim.
+@NotEmpty: For String, Collection, Map, Array—non-null and size > 0; does not trim strings.
+@NotNull: Applicable to any type—just must not be null.
+Numeric: Use @Positive, @PositiveOrZero, @Negative, @Min, @Max for numbers.
+@Size(min, max): Works for String, Collection, Map, Array to check length/size.
+Nested validation: Use @Valid on the nested object field to cascade validation.
+
+
+private Long needsReviewId;
+
+// Optional; must be >= 0 if provided
+@PositiveOrZero(message = "Customer Id must be zero or a positive number when provided")
+// OR: @Min(value = 0, message = "Customer Id must be zero or greater when provided")
+private Integer customerId;
+
+@jakarta.validation.constraints.NotBlank(message = "Order Type cannot be null")
+private String orderTypeCd;
+
+
+
+
+| **Constraint**                                              | **Applicable Types**           | **Notes**                        | **Example**                                         |
+| ----------------------------------------------------------- | ------------------------------ | -------------------------------- | --------------------------------------------------- |
+| `@NotBlank`                                                 | String only                    | Non-null, non-empty after trim   | `@NotBlank private String name;`                    |
+| `@NotEmpty`                                                 | String, Collection, Map, array | Non-null, size > 0; doesn’t trim | `@NotEmpty private List<String> items;`             |
+| `@NotNull`                                                  | Any type                       | Must not be null                 | `@NotNull private Integer age;`                     |
+| `@Positive`, `@PositiveOrZero`, `@Negative`, `@Min`, `@Max` | Numeric types                  | For numeric validations          | `@Min(18) @Max(60) private int age;`                |
+| `@Size(min, max)`                                           | String, Collection, Map, array | Validates size or length         | `@Size(min = 5, max = 20) private String username;` |
+
+
+
+
+
+
+package com.example.validation;
+
+import jakarta.validation.Valid;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+import jakarta.validation.constraints.*;
+import java.util.*;
+
+public class UserProfile {
+
+    // -------- String constraints --------
+    @NotBlank(message = "Full name must not be blank")
+    private String fullName; // trims and checks non-empty
+
+    @NotEmpty(message = "Roles must not be empty")
+    private List<@NotBlank(message = "Role name must not be blank") String> roles; // non-null and size > 0
+
+    @Size(min = 5, max = 20, message = "Username length must be between 5 and 20")
+    @NotNull(message = "Username must be provided")
+    private String username;
+
+    // -------- Numeric constraints --------
+    @Min(value = 18, message = "Age must be at least 18")
+    @Max(value = 60, message = "Age must be at most 60")
+    private int age;
+
+    @Positive(message = "Salary must be positive")
+    private Double salary;
+
+    @PositiveOrZero(message = "Reward points must be zero or positive")
+    private Long rewardPoints;
+
+    @Negative(message = "Debt must be negative")
+    private Integer debt;
+
+    // -------- Collections / Maps / Arrays --------
+    @NotEmpty(message = "Tags must not be empty")
+    @Size(max = 10, message = "No more than 10 tags allowed")
+    private Set<@NotBlank(message = "Tag value must not be blank") String> tags;
+
+    @NotNull(message = "Preferences map must not be null")
+    @Size(min = 1, message = "At least one preference is required")
+    private Map<@NotBlank(message = "Preference key must not be blank") String,
+               @NotBlank(message = "Preference value must not be blank") String> preferences;
+
+    @NotNull(message = "Aliases array must not be null")
+    @Size(min = 1, message = "At least one alias is required")
+    private String[] aliases;
+
+    // -------- Nested object validation --------
+    @Valid
+    @NotNull(message = "Primary address is required")
+    private Address primaryAddress;
+
+    // -------- Optional ID note --------
+    // Prefer numeric types for IDs to avoid blank/format issues
+    @Positive(message = "Customer ID must be positive")
+    private Long customerId;
+
+    // -------- Constructors, getters, setters --------
+    public UserProfile() {}
+
+    // Getters and Setters
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
+
+    public List<String> getRoles() { return roles; }
+    public void setRoles(List<String> roles) { this.roles = roles; }
+
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
+    public int getAge() { return age; }
+    public void setAge(int age) { this.age = age; }
+
+    public Double getSalary() { return salary; }
+    public void setSalary(Double salary) { this.salary = salary; }
+
+    public Long getRewardPoints() { return rewardPoints; }
+    public void setRewardPoints(Long rewardPoints) { this.rewardPoints = rewardPoints; }
+
+    public Integer getDebt() { return debt; }
+    public void setDebt(Integer debt) { this.debt = debt; }
+
+    public Set<String> getTags() { return tags; }
+    public void setTags(Set<String> tags) { this.tags = tags; }
+
+    public Map<String, String> getPreferences() { return preferences; }
+    public void setPreferences(Map<String, String> preferences) { this.preferences = preferences; }
+
+    public String[] getAliases() { return aliases; }
+    public void setAliases(String[] aliases) { this.aliases = aliases; }
+
+    public Address getPrimaryAddress() { return primaryAddress; }
+    public void setPrimaryAddress(Address primaryAddress) { this.primaryAddress = primaryAddress; }
+
+    public Long getCustomerId() { return customerId; }
+    public void setCustomerId(Long customerId) { this.customerId = customerId; }
+
+    // -------- Nested Address class demonstrating constraints --------
+    public static class Address {
+
+        @NotBlank(message = "Line1 must not be blank")
+        private String line1;
+
+        private String line2; // optional
+
+        @NotBlank(message = "City must not be blank")
+        private String city;
+
+        @NotBlank(message = "State must not be blank")
+        private String state;
+
+        @Size(min = 5, max = 10, message = "Postal code must be 5-10 characters")
+        @NotBlank(message = "Postal code must not be blank")
+        private String postalCode;
+
+        public Address() {}
+
+        public Address(String line1, String line2, String city, String state, String postalCode) {
+            this.line1 = line1;
+            this.line2 = line2;
+            this.city = city;
+            this.state = state;
+            this.postalCode = postalCode;
+        }
+
+        public String getLine1() { return line1; }
+        public void setLine1(String line1) { this.line1 = line1; }
+
+        public String getLine2() { return line2; }
+        public void setLine2(String line2) { this.line2 = line2; }
+
+        public String getCity() { return city; }
+        public void setCity(String city) { this.city = city; }
+
+        public String getState() { return state; }
+        public void setState(String state) { this.state = state; }
+
+        public String getPostalCode() { return postalCode; }
+        public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
+    }
+
+    // -------- Demo: programmatic validation --------
+    public static void main(String[] args) {
+        // Create a deliberately invalid object to show violations
+        UserProfile profile = new UserProfile();
+        profile.setFullName("   "); // NotBlank will fail (blank after trim)
+        profile.setRoles(Collections.emptyList()); // NotEmpty will fail
+        profile.setUsername("usr"); // Size min=5 will fail
+        profile.setAge(16); // Min(18) will fail
+        profile.setSalary(-100.0); // Positive will fail
+        profile.setRewardPoints(-1L); // PositiveOrZero will fail
+        profile.setDebt(10); // Negative will fail
+        profile.setTags(new HashSet<>()); // NotEmpty will fail
+        profile.setPreferences(new HashMap<>()); // Size(min=1) will fail
+        profile.setAliases(new String[]{}); // Size(min=1) will fail
+        profile.setCustomerId(0L); // Positive will fail
+        profile.setPrimaryAddress(new Address("", null, "", "UP", "12")); // multiple failures
+
+        // Validate
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        var violations = validator.validate(profile);
+
+        if (!violations.isEmpty()) {
+            System.out.println("Validation errors:");
+            violations.forEach(v -> System.out.printf("- %s: %s (Invalid value: %s)%n",
+                    v.getPropertyPath(), v.getMessage(), v.getInvalidValue()));
+        } else {
+            System.out.println("All validations passed!");
+        }
+    }
+}
