@@ -1,0 +1,69 @@
+Data types
+=================
+
+Data type means which type of value we can store in variable or memory.
+we have different type of data type so we can use based on requirement.
+
+https://www.geeksforgeeks.org/c/ranges-of-data-types-in-c/
+
+#include <iostream>
+using namespace std;
+int main() {
+    
+  int empId=52339402;
+  string empName="Harendra Kumar";// Object 
+  short empAge=999;// 2 byte  16 bit
+  float salary=10000.45;
+  string department="IT";// information technologies, HR (Human Resource),"Finance","Security Management",
+  
+  string designation="Techinal Lead ";
+  string emailId="hk501377@gmail.com";
+  long mobile =9319506626;
+  string education= "MCA";
+  string address="Nunihai Road Rambagh Arga";
+  string city="Agra";
+  string district="AGRA";
+  string state="UP";
+  string country="IN";
+  char gender ='M';
+  
+  
+  
+
+    cout << "----- Employee Details -----\n";
+    cout << "Employee ID     : " << empId << '\n';
+    cout << "Name            : " << empName << '\n';
+    cout << "Age             : " << empAge << '\n';
+    cout << "Salary          : " << salary << '\n';
+    cout << "Department      : " << department << '\n';
+    cout << "Designation     : " << designation << '\n';
+    cout << "Email           : " << emailId << '\n';
+    cout << "Mobile          : " << mobile << '\n';
+    cout << "Education       : " << education << '\n';
+    cout << "Address         : " << address << '\n';
+    cout << "City            : " << city << '\n';
+    cout << "District        : " << district << '\n';
+    cout << "State           : " << state << '\n';
+    cout << "Country         : " << country << '\n';
+    cout << "Gender          : " << gender << '\n';
+    string currency="₹";
+    cout<<  "Currency        : " << currency<<'\n';
+    cout << "----------------------------\n";
+
+  
+  auto val="Harendra";
+  cout<<val;
+  
+  
+  
+  
+  
+  
+  
+    
+    return 0;
+}
+
+
+
+
