@@ -1,0 +1,37 @@
+Create a responsive landing page website for "Smart Surveillance Solution" using HTML, CSS, and JavaScript. 
+
+Requirements:
+1. **Animations & Interactivity**
+   - Smooth fade-in and slide-up animations for sections (Hero, Services, Testimonials, Pricing).
+   - Animated CTA buttons with hover effects.
+   - Scroll-triggered animations (e.g., services cards zoom in when visible).
+   - Hero section background with subtle animated gradient or CCTV camera icon animation.
+
+2. **SEO-Friendly Structure**
+   - Semantic HTML5 tags (header, nav, section, article, footer).
+   - Meta title: "Smart Surveillance Solution | CCTV & Security Systems Delhi NCR"
+   - Meta description: "Professional CCTV installation, smart locks, and security solutions for homes and businesses in Delhi NCR. Trusted, affordable, and reliable."
+   - Use H1 for main headline, H2 for section titles, alt attributes for images.
+   - Fast-loading, mobile-friendly design with optimized code.
+
+3. **Content Sections**
+   - Hero: Headline, subheadline, CTA buttons ("Get Free Quote", "Book Installation").
+   - Why Choose Us: Bullet points with icons.
+   - Services: Animated cards (CCTV Installation, Smart Locks, Maintenance, Remote Monitoring).
+   - Testimonials: Carousel or fade-in quotes.
+   - Packages & Pricing: 3 animated pricing cards with hover effects.
+   - Contact: Form with validation + contact info.
+   - Footer: Navigation links + social media icons.
+
+4. **Design Style**
+   - Professional security theme: dark blue, orange accents.
+   - Clean, modern typography.
+   - Responsive grid layout.
+
+5. **JavaScript Features**
+   - Smooth scroll navigation.
+   - Scroll-triggered animations (using Intersection Observer).
+   - Form validation with success message.
+   - Animated counters (e.g., "500+ Installations Completed").
+
+Deliver the output as a complete HTML, CSS, and JavaScript codebase ready to run in a browser.
